@@ -1,32 +1,44 @@
-public class Song {
-    String title;
-    String artist;
-    int duration;
+import java.util.Objects;
 
-    public Song(String title, String artist, int duration){
-        this.title = title;
+public class Song extends MusicItem {
+
+    private String artist;
+    private int duration;
+
+    public Song(String title, String artist, int duration) {
+        super(title);
         this.artist = artist;
         this.duration = duration;
     }
-    public String getTitle(){
-        return title;
-    }
-    public String getArtist(){
+
+    public String getArtist() {
         return artist;
     }
-    public int getDuration(){
+
+    public int getDuration() {
         return duration;
     }
-    public void setTitle(String title){
-        this.title = title;
+
+    @Override
+    public String getInfo() {
+        return toString();
     }
-    public void setArtist(String artist){
-        this.artist = artist;
+
+    @Override
+    public String toString() {
+        return title + " - " + artist + " (" + duration + " sec)";
     }
-    public void setDuration(int duration){
-        this.duration = duration;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song)) return false;
+        Song song = (Song) o;
+        return title.equals(song.title) && artist.equals(song.artist);
     }
-    public void printInfo() {
-        System.out.println(title + " - " + artist + " (" + duration + " сек)");
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, artist);
     }
 }

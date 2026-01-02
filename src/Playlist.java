@@ -1,43 +1,47 @@
-public class Playlist {
-    String name;
-    Song song1;
-    Song song2;
-    Song song3;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-    public Playlist(String name, Song song1, Song song2, Song song3) {
-        this.name = name;
-        this.song1 = song1;
-        this.song2 = song2;
-        this.song3 = song3;
-    }
-    public String getName() {
-        return name;
-    }
-    public Song getSong1() {
-        return song1;
-    }
-    public Song getSong2() {
-        return song2;
-    }
-    public Song getSong3() {
-        return song3;
-    }
-    public void setName(String name) {
+public class Playlist {
+
+    private String name;
+    private ArrayList<Song> songs = new ArrayList<>();
+
+    public Playlist(String name) {
         this.name = name;
     }
-    public void setSong1(Song song1) {
-        this.song1 = song1;
+
+    public void addSong(Song song) {
+        songs.add(song);
     }
-    public void setSong2(Song song2) {
-        this.song2 = song2;
+
+    public void showAll() {
+        for (Song s : songs) {
+            System.out.println(s);
+        }
     }
-    public void setSong3(Song song3) {
-        this.song3 = song3;
+
+    public Song findByTitle(String title) {
+        for (Song s : songs) {
+            if (s.getTitle().equalsIgnoreCase(title)) {
+                return s;
+            }
+        }
+        return null;
     }
-    public void printPlaylist() {
-        System.out.println("Плейлист: " + name);
-        System.out.println("1. " + song1.getTitle() + " - " + song1.getArtist());
-        System.out.println("2. " + song2.getTitle() + " - " + song2.getArtist());
-        System.out.println("3. " + song3.getTitle() + " - " + song3.getArtist());
+
+    public List<Song> filterByArtist(String artist) {
+        List<Song> result = new ArrayList<>();
+        for (Song s : songs) {
+            if (s.getArtist().equalsIgnoreCase(artist)) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+    public void sortByDuration() {
+        Collections.sort(songs, Comparator.comparingInt(Song::getDuration));
     }
 }
